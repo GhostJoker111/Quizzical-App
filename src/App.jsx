@@ -11,7 +11,6 @@ export default function App() {
 
   useEffect(() => {
     async function getQuizzData() {
-      console.log("I'm getting data....")
       try {
         const response = await fetch('https://opentdb.com/api.php?amount=5')
         if (!response.ok) {
@@ -39,7 +38,7 @@ export default function App() {
       }
     }
     getQuizzData()
-  },[fetchData])
+  }, [fetchData])
 
   function insertRandomly(arr, newItem) {
     const newArr = [...arr]
@@ -57,7 +56,7 @@ export default function App() {
   function startGame() {
     setFirstGame(false)
   }
-  // function chooseAnswer(id) {
+  // function choosenAnswer(id) {
   // }
 
   const quizzElements = data.map((element, index) => (
@@ -66,13 +65,15 @@ export default function App() {
         question={element.question}    
         answers={element.answers}
         rightAnswer={element.rightAnswer}
-        //chooseAnswer={() => chooseAnswer(id)}
+        //choosenAnswer={() => choosenAnswer(id)}
       />
     ))
 
   return (
     <main>
-      <section className="relative flex justify-center items-center min-h-screen bg-slate-50">
+      <section className= {firstGame ? "relative flex justify-center items-center min-h-screen bg-slate-50" 
+                                      : "relative flex flex-col justify-center items-center min-h-screen bg-slate-50"}
+      >
         <img className="absolute bottom-0 left-0" src="./src/assets/blue-cloud.svg" alt="Blue cloud" />
         <img className="absolute top-0 right-0" src="./src/assets/yellow-cloud.svg" alt="Yellow cloud" />
         {firstGame && (
@@ -88,6 +89,11 @@ export default function App() {
         </div>
         )}
         {!firstGame && <div>{quizzElements}</div>}
+        {!firstGame && <button 
+            className="text-xl mt-7 py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer"
+          >
+            Check answers
+          </button>}
       </section>
     </main>
   )
