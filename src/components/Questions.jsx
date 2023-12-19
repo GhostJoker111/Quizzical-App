@@ -1,15 +1,17 @@
 import PropTypes from 'prop-types'
 
 export default function Questions (props) {
-  console.log(props)
-  const {answers, question} = props
+  const {answers, question, chooseAnswer, givenAnswer} = props
 
   const answerEls = answers.map((element, index) => (
     <p 
       key={index}
-      className="px-4 py-1 rounded-xl border-2 border-indigo-800 cursor-pointer"
+      className={ givenAnswer === "" ? "px-4 py-1 rounded-xl border-2 border-indigo-800 cursor-pointer" 
+                              : "px-4 py-1 rounded-xl border-2 border-transparent bg-blue-200 cursor-pointer"}
+      onClick={chooseAnswer}
+      id={element.id}
     >
-      {element}
+      {element.value}
     </p>
   ))
 
@@ -24,4 +26,6 @@ export default function Questions (props) {
 Questions.propTypes = {
   answers: PropTypes.array.isRequired,
   question: PropTypes.string.isRequired,
+  chooseAnswer: PropTypes.func.isRequired,
+  givenAnswer: PropTypes.string.isRequired,
 };

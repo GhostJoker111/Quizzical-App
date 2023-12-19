@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
-import { nanoid } from "nanoid"
 import he from "he"
+import { nanoid } from "nanoid"
 import Questions from "./components/Questions"
 
 export default function App() {
   const [data, setData] = useState([])
-  const [chosenAnswer, setChosenAnswer] = useState([])
   const [firstGame, setFirstGame] = useState(true)
   const [fetchData, setFetchData] = useState(true)
 
@@ -30,6 +29,7 @@ export default function App() {
             question: decodedQuestion,
             answers: decodedAnswers,
             rightAnswer: correctAnswer,
+            givenAnswer: "",
           }
         }))
 
@@ -49,15 +49,31 @@ export default function App() {
 
   function decodingAnswers(arr) {
     const newArr = [...arr]
-    const correctAnswers = newArr.map(answer => he.decode(answer))
+    const correctAnswers = newArr.map(answer => {
+      const decodedAnswer =  he.decode(answer)
+      return {
+        value: decodedAnswer,
+        id: nanoid(),
+      }
+    })
     return correctAnswers
   }
 
   function startGame() {
     setFirstGame(false)
   }
-  // function choosenAnswer(id) {
-  // }
+
+  function chooseAnswer(e) {
+    const givenAnswerId = e.target.id
+    setData(prevData => {
+      return prevData.map(element => {
+        const choose = element.answers.find(answer => answer.id === givenAnswerId)
+        return choose ? {...element, givenAnswer: choose.value} : element
+      })
+    })
+  }
+
+  console.log(data)
 
   const quizzElements = data.map((element, index) => (
       <Questions
@@ -65,14 +81,15 @@ export default function App() {
         question={element.question}    
         answers={element.answers}
         rightAnswer={element.rightAnswer}
-        //choosenAnswer={() => choosenAnswer(id)}
+        givenAnswer={element.givenAnswer}
+        chooseAnswer={(e) => chooseAnswer(e)}
       />
     ))
 
   return (
     <main>
-      <section className= {firstGame ? "relative flex justify-center items-center min-h-screen bg-slate-50" 
-                                      : "relative flex flex-col justify-center items-center min-h-screen bg-slate-50"}
+      <section className= {firstGame ? "relative flex justify-center items-center px-20 min-h-screen bg-slate-50" 
+                                      : "relative flex flex-col justify-center items-center px-20 min-h-screen bg-slate-50"}
       >
         <img className="absolute bottom-0 left-0" src="./src/assets/blue-cloud.svg" alt="Blue cloud" />
         <img className="absolute top-0 right-0" src="./src/assets/yellow-cloud.svg" alt="Yellow cloud" />
