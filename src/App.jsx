@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import he from "he"
 import { nanoid } from "nanoid"
+import Confetti from "react-confetti";
 import Questions from "./components/Questions"
 
 export default function App() {
   const [data, setData] = useState([])
   const [firstGame, setFirstGame] = useState(true)
   const [fetchData, setFetchData] = useState(true)
+  const [isFinished, setIsFinished] = useState(false)
 
   useEffect(() => {
     async function getQuizzData() {
@@ -73,8 +75,24 @@ export default function App() {
     })
   }
 
-  console.log(data)
+  function checkAnswers() {
+    setIsFinished(prevIsFinished => !prevIsFinished)
+  }
 
+  function playAgain() {
+    setIsFinished(prevIsFinished => !prevIsFinished)
+    setFetchData(prevFetchData => !prevFetchData)
+  }
+
+  function rightAnswers() {
+    const numOfRightAnswers = data.reduce((acc, element) => {
+      const {givenAnswer, rightAnswer} = element
+      return givenAnswer === rightAnswer ? acc + 1 : acc
+    }, 0)
+
+    return numOfRightAnswers
+  }
+ 
   const quizzElements = data.map((element, index) => (
       <Questions
         key={index}
@@ -83,13 +101,14 @@ export default function App() {
         rightAnswer={element.rightAnswer}
         givenAnswer={element.givenAnswer}
         chooseAnswer={(e) => chooseAnswer(e)}
+        isFinished={isFinished}
       />
     ))
 
   return (
     <main>
-      <section className= {firstGame ? "relative flex justify-center items-center px-20 min-h-screen bg-slate-50" 
-                                      : "relative flex flex-col justify-center items-center px-20 min-h-screen bg-slate-50"}
+      {rightAnswers() === 5 && isFinished && <Confetti />}
+      <section className={`relative flex justify-center items-center px-20 min-h-screen bg-slate-50 ${!firstGame ? "flex-col" : ""}`}
       >
         <img className="absolute bottom-0 left-0" src="./src/assets/blue-cloud.svg" alt="Blue cloud" />
         <img className="absolute top-0 right-0" src="./src/assets/yellow-cloud.svg" alt="Yellow cloud" />
@@ -105,14 +124,17 @@ export default function App() {
           </button>
         </div>
         )}
-        {!firstGame && <div>{quizzElements}</div>}
-        {!firstGame && <button 
-            className="text-xl mt-7 py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer"
+        {!firstGame && <section>{quizzElements}</section>}
+        <div className='flex justify-between items-center mt-7 gap-x-8 text-xl'>
+          {isFinished && <p className='text-blue-950'>You scored {rightAnswers()}/5 correct answers</p>}
+          {!firstGame && <button 
+            className="py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer"
+            onClick={!isFinished ? checkAnswers : playAgain}
           >
-            Check answers
+            {!isFinished ? "Check answers" : "Play again"}
           </button>}
+        </div>
       </section>
     </main>
   )
 }
-
