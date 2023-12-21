@@ -4,6 +4,9 @@ import { nanoid } from "nanoid"
 import Confetti from "react-confetti";
 import Questions from "./components/Questions"
 
+import blueImg from "./assets/blue-cloud.svg"
+import yellowImg from "./assets/yellow-cloud.svg";
+
 export default function App() {
   const [data, setData] = useState([])
   const [firstGame, setFirstGame] = useState(true)
@@ -110,8 +113,8 @@ export default function App() {
       {rightAnswers() === 5 && isFinished && <Confetti />}
       <section className={`relative flex justify-center items-center px-20 min-h-screen bg-slate-50 ${!firstGame ? "flex-col" : ""}`}
       >
-        <img className="absolute bottom-0 left-0" src="./src/assets/blue-cloud.svg" alt="Blue cloud" />
-        <img className="absolute top-0 right-0" src="./src/assets/yellow-cloud.svg" alt="Yellow cloud" />
+        <img className="absolute bottom-0 left-0" src={blueImg} alt="Blue cloud" />
+        <img className="absolute top-0 right-0" src={yellowImg} alt="Yellow cloud" />
         {firstGame && (
         <div className="flex flex-col justify-center items-center text-blue-950">
           <h1 className="font-mono text-5xl font-semibold">Quizzical</h1>
