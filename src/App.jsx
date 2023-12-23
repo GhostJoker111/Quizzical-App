@@ -117,10 +117,10 @@ export default function App() {
         <img className="absolute top-0 right-0" src={yellowImg} alt="Yellow cloud" />
         {firstGame && (
         <div className="flex flex-col justify-center items-center text-blue-950">
-          <h1 className="font-mono text-5xl font-semibold">Quizzical</h1>
-          <p className="text-xl mt-3 mb-7">Random questions about general things</p>
+          <h1 className="font-mono text-5xl font-semibold sm:text-sm">Quizzical</h1>
+          <p className="text-xl mt-3 mb-7 sm:text-xs">Random questions about general things</p>
           <button 
-            className="text-xl py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer"
+            className="text-xl py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer sm:text-sm"
             onClick={startGame}
           >
             Start quizz
@@ -128,10 +128,10 @@ export default function App() {
         </div>
         )}
         {!firstGame && <section>{quizzElements}</section>}
-        <div className='flex justify-between items-center mt-7 gap-x-8 text-xl'>
+        <div className='flex justify-between items-center mt-7 gap-x-8 text-xl sm:text-sm'>
           {isFinished && <p className='text-blue-950'>You scored {rightAnswers()}/5 correct answers</p>}
           {!firstGame && <button 
-            className="py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer"
+            className="py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer sm:text-sm"
             onClick={!isFinished ? checkAnswers : playAgain}
           >
             {!isFinished ? "Check answers" : "Play again"}
