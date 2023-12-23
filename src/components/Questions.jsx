@@ -9,10 +9,10 @@ export default function Questions (props) {
       className={`
         px-4 py-1 rounded-xl border-2 text-blue-950 cursor-pointer focus:bg-blue-700
         ${givenAnswer === answer.value ? 'border-transparent bg-blue-200' : 'border-indigo-800'}
-        ${(isFinished && (givenAnswer === answer.value && givenAnswer === rightAnswer)) && 'bg-green-400'}
-        ${(isFinished && (givenAnswer === answer.value && givenAnswer !== rightAnswer)) && 'bg-red-500 opacity-50'}
-        ${(isFinished && (givenAnswer !== answer.value && rightAnswer === answer.value)) && 'bg-green-400 border-transparent opacity-100'}
-        ${isFinished && (givenAnswer !== answer.value) && 'opacity-50'}
+        ${isFinished && givenAnswer === answer.value && givenAnswer === rightAnswer && 'bg-green-400 opacity-100 border-transparent'}
+        ${isFinished && givenAnswer === answer.value && givenAnswer !== rightAnswer && 'bg-red-500 opacity-50 border-transparent'}
+        ${isFinished && givenAnswer !== answer.value && rightAnswer === answer.value && 'bg-green-400 opacity-100 border-transparent'}
+        ${isFinished && (givenAnswer !== answer.value && rightAnswer !== answer.value) && 'opacity-50'}
       `}
       onClick={chooseAnswer}
       id={answer.id}
