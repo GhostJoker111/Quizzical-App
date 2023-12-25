@@ -14,35 +14,37 @@ export default function App() {
   const [isFinished, setIsFinished] = useState(false)
 
   useEffect(() => {
-    async function getQuizzData() {
+    async function fetchQuizzData() {
       try {
-        const response = await fetch('https://opentdb.com/api.php?amount=5')
+        const response = await fetch('https://opentdb.com/api.php?amount=5');
         if (!response.ok) {
-          throw new Error('Response error')
+          throw new Error('Response error');
         }
-        const apiData = await response.json()
-        const {results} = apiData
-        setData(results.map(item => {
-          const {correct_answer, incorrect_answers, question} = item
-    
-          const correctAnswer = he.decode(correct_answer)
-          const allAnswers = insertRandomly(incorrect_answers, correctAnswer)
-    
-          const decodedAnswers =  decodingAnswers(allAnswers)
-          const decodedQuestion = he.decode(question)
-          return {
-            question: decodedQuestion,
-            answers: decodedAnswers,
-            rightAnswer: correctAnswer,
-            givenAnswer: "",
-          }
-        }))
-
+        const apiData = await response.json();
+        const { results } = apiData;
+        setData(results.map(item => decodeQuizzData(item)));
       } catch (error) {
-        console.error('Error fetching data:', error)
+        console.error('Error fetching data:', error);
+        return [];
       }
     }
-    getQuizzData()
+    
+    function decodeQuizzData(item) {
+      const { correct_answer, incorrect_answers, question } = item;
+      const correctAnswer = he.decode(correct_answer);
+      const allAnswers = insertRandomly(incorrect_answers, correctAnswer);
+      const decodedAnswers = decodingAnswers(allAnswers);
+      const decodedQuestion = he.decode(question);
+    
+      return {
+        question: decodedQuestion,
+        answers: decodedAnswers,
+        rightAnswer: correctAnswer,
+        givenAnswer: "",
+      };
+    }
+
+    fetchQuizzData()
   }, [fetchData])
 
   function insertRandomly(arr, newItem) {
@@ -111,7 +113,7 @@ export default function App() {
   return (
     <main>
       {rightAnswers() === 5 && isFinished && <Confetti />}
-      <section className={`relative flex justify-center items-center px-28 min-h-screen bg-slate-50 ${!firstGame ? "flex-col" : ""}`}
+      <section className={`relative flex justify-center items-center min-h-screen bg-slate-50 ${!firstGame ? "flex-col" : ""}`}
       >
         <img className="absolute bottom-0 left-0" src={blueImg} alt="Blue cloud" />
         <img className="absolute top-0 right-0" src={yellowImg} alt="Yellow cloud" />
@@ -127,8 +129,8 @@ export default function App() {
           </button>
         </div>
         )}
-        {!firstGame && <section className='z-10'>{quizzElements}</section>}
-        <div className='flex justify-between items-center z-10 mt-5 md:mt-7 gap-x-8 text-xs md:text-lg'>
+        {!firstGame && <section className='z-10 px-16'>{quizzElements}</section>}
+        {!firstGame && <div className='flex justify-between items-center z-10 mx-12 mt-5 md:mt-7 gap-x-8 text-xs md:text-lg'>
           {isFinished && <p className='text-blue-950 text-nowrap'>You scored {rightAnswers()}/5 correct answers</p>}
           {!firstGame && <button 
             className="py-2 px-5 md:py-4 md:px-14 bg-indigo-600 text-slate-50 text-nowrap rounded-2xl cursor-pointer"
@@ -136,7 +138,7 @@ export default function App() {
           >
             {!isFinished ? "Check answers" : "Play again"}
           </button>}
-        </div>
+        </div>}
       </section>
     </main>
   )
