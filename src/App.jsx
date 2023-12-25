@@ -129,7 +129,7 @@ export default function App() {
           </button>
         </div>
         )}
-        {!firstGame && <section className='z-10 px-16'>{quizzElements}</section>}
+        {!firstGame && <section className='z-10 px-12'>{quizzElements}</section>}
         {!firstGame && <div className='flex justify-between items-center z-10 mx-12 mt-5 md:mt-7 gap-x-8 text-xs md:text-lg'>
           {isFinished && <p className='text-blue-950 text-nowrap'>You scored {rightAnswers()}/5 correct answers</p>}
           {!firstGame && <button 
