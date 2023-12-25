@@ -1,6 +1,6 @@
 Hi, everyone. It's simple version of one of the most famous games - Quizz! Designed with React, Tailwind CSS.
 
-Try this - https://vermillion-daifuku-72580c.netlify.app
+Try this - https://sparkling-speculoos-fc543c.netlify.app
 
 # React + Vite
 
