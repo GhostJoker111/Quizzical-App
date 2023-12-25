@@ -7,7 +7,7 @@ export default function Questions (props) {
     <p 
       key={index}
       className={`
-        px-4 py-1 rounded-xl border-2 text-blue-950 cursor-pointer focus:bg-blue-700 text-xs md:text-base
+        px-1 md:px-4 py-1 rounded-xl border text-blue-950 cursor-pointer focus:bg-blue-700 text-xs md:text-base
         ${givenAnswer === answer.value ? 'border-transparent bg-blue-200' : 'border-indigo-800'}
         ${isFinished && givenAnswer === answer.value && givenAnswer === rightAnswer && 'bg-green-400 opacity-100 border-transparent'}
         ${isFinished && givenAnswer === answer.value && givenAnswer !== rightAnswer && 'bg-red-500 opacity-50 border-transparent'}

@@ -113,8 +113,8 @@ export default function App() {
       {rightAnswers() === 5 && isFinished && <Confetti />}
       <section className={`relative flex justify-center items-center px-28 min-h-screen bg-slate-50 ${!firstGame ? "flex-col" : ""}`}
       >
-        <img className="absolute -bottom-8 md:bottom-0 left-0" src={blueImg} alt="Blue cloud" />
-        <img className="absolute -top-8 md:top-0 right-0" src={yellowImg} alt="Yellow cloud" />
+        <img className="absolute bottom-0 left-0" src={blueImg} alt="Blue cloud" />
+        <img className="absolute top-0 right-0" src={yellowImg} alt="Yellow cloud" />
         {firstGame && (
         <div className="flex flex-col justify-center items-center text-blue-950">
           <h1 className="font-mono text-sm md:text-5xl font-semibold">Quizzical</h1>
@@ -127,11 +127,11 @@ export default function App() {
           </button>
         </div>
         )}
-        {!firstGame && <section>{quizzElements}</section>}
-        <div className='flex justify-between items-center mt-5 md:mt-7 gap-x-8 text-sm md:text-xl'>
-          {isFinished && <p className='text-blue-950'>You scored {rightAnswers()}/5 correct answers</p>}
+        {!firstGame && <section className='z-10'>{quizzElements}</section>}
+        <div className='flex justify-between items-center z-10 mt-5 md:mt-7 gap-x-8 text-sm md:text-xl'>
+          {isFinished && <p className='text-nowrap text-blue-950 text-xs'>You scored {rightAnswers()}/5 correct answers</p>}
           {!firstGame && <button 
-            className="py-3 px-10 md:py-4 md:px-14 bg-indigo-600 text-md md:text-lg text-slate-50 rounded-2xl cursor-pointer"
+            className="text-nowrap py-2 px-5 md:py-4 md:px-14 bg-indigo-600 text-md md:text-lg text-slate-50 rounded-2xl cursor-pointer"
             onClick={!isFinished ? checkAnswers : playAgain}
           >
             {!isFinished ? "Check answers" : "Play again"}
