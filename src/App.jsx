@@ -111,16 +111,16 @@ export default function App() {
   return (
     <main>
       {rightAnswers() === 5 && isFinished && <Confetti />}
-      <section className={`relative flex justify-center items-center px-20 min-h-screen bg-slate-50 ${!firstGame ? "flex-col" : ""}`}
+      <section className={`relative flex justify-center items-center px-28 min-h-screen bg-slate-50 ${!firstGame ? "flex-col" : ""}`}
       >
-        <img className="absolute bottom-0 left-0" src={blueImg} alt="Blue cloud" />
-        <img className="absolute top-0 right-0" src={yellowImg} alt="Yellow cloud" />
+        <img className="absolute -bottom-8 md:bottom-0 left-0" src={blueImg} alt="Blue cloud" />
+        <img className="absolute -top-8 md:top-0 right-0" src={yellowImg} alt="Yellow cloud" />
         {firstGame && (
         <div className="flex flex-col justify-center items-center text-blue-950">
-          <h1 className="font-mono text-5xl font-semibold sm:text-sm">Quizzical</h1>
-          <p className="text-xl mt-3 mb-7 sm:text-xs">Random questions about general things</p>
+          <h1 className="font-mono text-sm md:text-5xl font-semibold">Quizzical</h1>
+          <p className="text-xs md:text-xl mt-3 mb-7">Random questions about general things</p>
           <button 
-            className="text-xl py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer sm:text-sm"
+            className="text-sm md:text-xl py-3 px-10 md:py-4 md:px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer"
             onClick={startGame}
           >
             Start quizz
@@ -128,10 +128,10 @@ export default function App() {
         </div>
         )}
         {!firstGame && <section>{quizzElements}</section>}
-        <div className='flex justify-between items-center mt-7 gap-x-8 text-xl sm:text-sm'>
+        <div className='flex justify-between items-center mt-5 md:mt-7 gap-x-8 text-sm md:text-xl'>
           {isFinished && <p className='text-blue-950'>You scored {rightAnswers()}/5 correct answers</p>}
           {!firstGame && <button 
-            className="py-4 px-14 bg-indigo-600 text-slate-50 rounded-2xl cursor-pointer sm:text-sm"
+            className="py-3 px-10 md:py-4 md:px-14 bg-indigo-600 text-md md:text-lg text-slate-50 rounded-2xl cursor-pointer"
             onClick={!isFinished ? checkAnswers : playAgain}
           >
             {!isFinished ? "Check answers" : "Play again"}

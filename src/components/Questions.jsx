@@ -7,7 +7,7 @@ export default function Questions (props) {
     <p 
       key={index}
       className={`
-        px-4 py-1 rounded-xl border-2 text-blue-950 cursor-pointer focus:bg-blue-700 sm:text-xs
+        px-4 py-1 rounded-xl border-2 text-blue-950 cursor-pointer focus:bg-blue-700 text-xs md:text-base
         ${givenAnswer === answer.value ? 'border-transparent bg-blue-200' : 'border-indigo-800'}
         ${isFinished && givenAnswer === answer.value && givenAnswer === rightAnswer && 'bg-green-400 opacity-100 border-transparent'}
         ${isFinished && givenAnswer === answer.value && givenAnswer !== rightAnswer && 'bg-red-500 opacity-50 border-transparent'}
@@ -23,8 +23,8 @@ export default function Questions (props) {
 
   return (
     <div className={`text-blue-950 border-b-2 border-gray-300 ${isFinished ? 'pointer-events-none' : ''}`}>
-      <h1 className="text-xl font-semibold mt-7 sm:text-sm" >{question}</h1>
-      <div className="flex gap-x-3.5 mt-3.5 mb-5">{answerEls}</div>
+      <h1 className="font-semibold mt-4 md:mt-6 text-sm md:text-lg" >{question}</h1>
+      <div className="flex gap-x-3.5 my-3.5 md:my-4">{answerEls}</div>
     </div>
   )
 }
