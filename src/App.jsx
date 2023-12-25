@@ -128,10 +128,10 @@ export default function App() {
         </div>
         )}
         {!firstGame && <section className='z-10'>{quizzElements}</section>}
-        <div className='flex justify-between items-center z-10 mt-5 md:mt-7 gap-x-8 text-sm md:text-xl'>
-          {isFinished && <p className='text-nowrap text-blue-950 text-xs'>You scored {rightAnswers()}/5 correct answers</p>}
+        <div className='flex justify-between items-center z-10 mt-5 md:mt-7 gap-x-8 text-xs md:text-lg'>
+          {isFinished && <p className='text-blue-950 text-nowrap'>You scored {rightAnswers()}/5 correct answers</p>}
           {!firstGame && <button 
-            className="text-nowrap py-2 px-5 md:py-4 md:px-14 bg-indigo-600 text-md md:text-lg text-slate-50 rounded-2xl cursor-pointer"
+            className="py-2 px-5 md:py-4 md:px-14 bg-indigo-600 text-slate-50 text-nowrap rounded-2xl cursor-pointer"
             onClick={!isFinished ? checkAnswers : playAgain}
           >
             {!isFinished ? "Check answers" : "Play again"}
